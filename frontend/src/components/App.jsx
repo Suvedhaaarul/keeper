@@ -5,6 +5,8 @@ import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 
+const API_BASE_URL = "https://keeperserver-i4u2.onrender.com/api/notes";
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [editingNote, setEditingNote] = useState(null);
@@ -15,7 +17,7 @@ function App() {
 
   async function fetchNotes() {
     try {
-      const res = await axios.get("http://localhost:3000/api/notes");
+      const res = await axios.get(API_BASE_URL);
       setNotes(res.data);
     } catch (err) {
       console.error("Error fetching notes", err);
@@ -24,7 +26,7 @@ function App() {
 
   async function addNote(newNote) {
     try {
-      const res = await axios.post("http://localhost:3000/api/notes", newNote);
+      const res = await axios.post(API_BASE_URL, newNote);
       setNotes((prev) => [...prev, res.data]);
     } catch (err) {
       console.error("Error adding note", err);
@@ -33,7 +35,7 @@ function App() {
 
   async function editNote(id, updatedNote) {
     try {
-      const res = await axios.put(`http://localhost:3000/api/notes/${id}`, updatedNote);
+      const res = await axios.put(`${API_BASE_URL}/${id}`, updatedNote);
       setNotes((prevNotes) =>
         prevNotes.map((note) => (note.id === id ? res.data : note))
       );
@@ -45,7 +47,7 @@ function App() {
 
   async function deleteNote(id) {
     try {
-      await axios.delete(`http://localhost:3000/api/notes/${id}`);
+      await axios.delete(`${API_BASE_URL}/${id}`);
       setNotes((prev) => prev.filter((note) => note.id !== id));
     } catch (err) {
       console.error("Error deleting note", err);
