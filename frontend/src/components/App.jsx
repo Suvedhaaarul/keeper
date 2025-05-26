@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 
-const API_BASE_URL = "https://keeperserver-i4u2.onrender.com/api/notes";
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 function App() {
   const [notes, setNotes] = useState([]);
